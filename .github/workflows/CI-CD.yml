@@ -37,21 +37,12 @@ jobs:
           if-false: ${{ secrets.FOLDER_ID_TEST }}
 
       - run: flutter pub get
-      - run: flutter build apk
-      - name: Archive Files
-        run: |
-          sudo apt-get update
-          sudo apt-get install zip
-          zip -r archive.zip *
+      - run: flutter build apk --release --split-per-abi
 
-      - name: Upload Apk to google drive
-        uses: adityak74/google-drive-upload-git-action@main
+      - name: Upload Apk
+        uses: ncipollo/release-action@v1
         with:
-          credentials: ${{ secrets.CREDENTIALS }}
-
-          filename: "build/app/outputs/flutter-apk/app-release.apk"
-          folderId: ${{ secrets.FOLDER_ID_MAIN }}
-          name: ${{ steps.branch.outputs.branch}}_apk_${{ steps.date.outputs.date }}.apk
-          overwrite: "true"
-          mimeType: "application/vnd.android.package-archive"
+          artifacts: "build/app/outputs/apk/release/*"
+          tags: v0.0.1
+          token: ${{ secrets.TOKEN }}
 
