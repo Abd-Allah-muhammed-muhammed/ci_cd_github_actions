@@ -5,7 +5,9 @@ on:
       - master
       - main
       - test
-
+  create:
+    tags:
+      - v*
 
 jobs:
   build_upload_notify:
