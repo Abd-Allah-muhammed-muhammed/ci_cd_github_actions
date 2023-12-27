@@ -32,8 +32,12 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Get Folder id by condition
+      - uses: haya14busa/action-cond@v1
         id: folderId
-        run: echo "::set-output name=value::${{ if eq(steps.branch.outputs.branch, 'master') }}${{ secrets.FOLDER_ID_MAIN }}${{ else }}${{ secrets.FOLDER_ID_TEST }}${{ endif }}"
+        with:
+          cond: ${{ steps.branch.outputs.branch == 'master' }}
+          if_true: ${{ secrets.FOLDER_ID_MAIN }}
+          if_false: ${{ secrets.FOLDER_ID_TEST }}
 
       - run: flutter pub get
       - run: flutter build apk
