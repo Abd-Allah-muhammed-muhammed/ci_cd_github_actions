@@ -17,6 +17,7 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
+          fetch-depth: 0
 
       - uses: subosito/flutter-action@v2
         with:
