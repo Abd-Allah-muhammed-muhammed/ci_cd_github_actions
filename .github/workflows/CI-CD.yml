@@ -48,6 +48,7 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.CREDENTIALS }}
+
           filename: "build/app/outputs/flutter-apk/app-release.apk"
           folderId: ${{ secrets.FOLDER_ID_MAIN }}
           name: ${{ steps.branch.outputs.branch}}_apk_${{ steps.date.outputs.date }}.apk
