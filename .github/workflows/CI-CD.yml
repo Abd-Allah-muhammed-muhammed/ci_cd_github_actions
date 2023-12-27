@@ -5,14 +5,16 @@ on:
       - master
       - main
       - test
-  create:
     tags:
-      - v*
+    - '*'
 
+defaults:
 jobs:
   build_upload_notify:
     name: build_upload_notify
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -24,12 +26,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Get Brush Name
-        id: branch
-        run: echo "::set-output name=branch::${GITHUB_REF##*/}"
-      - name: Get Today Date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - run: flutter pub get
       - run: flutter build apk --release --split-per-abi
@@ -38,6 +34,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*"
-          tags: v0.0.1
+          tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
 
