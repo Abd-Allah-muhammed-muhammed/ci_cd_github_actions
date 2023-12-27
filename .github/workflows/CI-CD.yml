@@ -30,7 +30,7 @@ jobs:
 
       - name: Get Folder id by condition
         uses: haya14busa/action-cond@v1
-        id: reporter
+        id: folderId
         with:
           cond: ${{ steps.branch.outputs.branch == 'master' }}
           if-true: ${{ secrets.FOLDER_ID_MAIN }}
@@ -49,7 +49,7 @@ jobs:
         with:
           credentials: ${{ secrets.CREDENTIALS }}
           filename: "build/app/outputs/flutter-apk/app-release.apk"
-          reporter: ${{ steps.reporter.outputs.value }}
+          folderId: ${{ secrets.FOLDER_ID_MAIN }}
           name: ${{ steps.branch.outputs.branch}}_apk_${{ steps.date.outputs.date }}.apk
           overwrite: "true"
           mimeType: "application/vnd.android.package-archive"
