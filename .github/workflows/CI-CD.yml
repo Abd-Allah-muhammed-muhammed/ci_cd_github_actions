@@ -29,12 +29,12 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Get Folder id by condition
-        uses: haya14busa/action-cond@v1
+      - uses: haya14busa/action-cond@v1
         id: folderId
         with:
           cond: ${{ steps.branch.outputs.branch == 'master' }}
-          if-true: ${{ secrets.FOLDER_ID_MAIN }}
-          if-false: ${{ secrets.FOLDER_ID_TEST }}
+          if_true: ${{ secrets.FOLDER_ID_MAIN }}
+          if_false: ${{ secrets.FOLDER_ID_TEST }}
 
       - run: flutter pub get
       - run: flutter build apk
@@ -46,7 +46,7 @@ jobs:
 #          zip -r ${{ steps.date.outputs.date }}.zip build/app/outputs/flutter-apk/app-release.apk
 
       - name: Upload Apk to google drive
-        uses: adityak74/google-drive-upload-git-action@main
+      - uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.CREDENTIALS }}
           filename: "build/app/outputs/flutter-apk/app-release.apk"
