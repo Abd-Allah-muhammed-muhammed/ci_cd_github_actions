@@ -6,6 +6,7 @@ on:
       - main
       - test
 
+
 jobs:
   build_upload_notify:
     name: build_upload_notify
@@ -19,7 +20,6 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.1.0'
           channel: 'stable'
       - name: Get Brush Name
         id: branch
