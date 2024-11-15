@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Cloning the repository from GitHub
-                git 'git@github.com:Abd-Allah-muhammed-muhammed/gitci.git'
+                git 'https://github.com/Abd-Allah-muhammed-muhammed/ci_cd_github_actions.git'
             }
         }
 
